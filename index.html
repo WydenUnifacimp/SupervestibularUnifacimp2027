@@ -48,6 +48,10 @@ button,.action{display:inline-flex;align-items:center;justify-content:center;gap
 button:hover,.action:hover{background:#650046;transform:translateY(-1px)}
 button:focus-visible,a:focus-visible{outline:3px solid #FFAA00;outline-offset:3px}
 .hint{font-size:12px;color:var(--muted);margin:10px 0 0;line-height:1.5}
+.reset-row{display:flex;justify-content:flex-end;margin-top:16px}
+button.secondary-button{background:transparent;color:var(--site-primary);border:1px solid light-dark(#D9B8D0,#6a4260);min-height:42px;padding:0 15px;font-size:13px}
+button.secondary-button:hover{background:light-dark(#F9EEF5,#342334)}
+@media(max-width:520px){.resulthead{flex-direction:column}.rank{align-self:flex-start}}
 .message{display:none;margin-top:18px;padding:14px 16px;border-radius:12px;background:light-dark(#FFF1EA,#38221e);color:light-dark(#8A351D,#ffb39c);font-size:14px;line-height:1.5}
 .result{display:none;margin-top:24px;border-top:1px solid var(--line);padding-top:25px}
 .resulthead{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:22px}
@@ -145,6 +149,7 @@ footer{max-width:760px;margin:26px auto 0;text-align:center;color:var(--muted);f
    <p class="hint" id="cpfHint">Digite ou cole o CPF com ou sem pontos e traço. Somente os 11 números serão considerados.</p>
   </form>
   <div id="message" class="message" role="status" aria-live="polite"></div>
+  <div class="reset-row"><button id="clearSearch" class="secondary-button" type="button" style="display:none">Nova consulta ↻</button></div>
   <section id="result" class="result" aria-live="polite">
    <div id="top3Celebration" class="top3-celebration" style="display:none" aria-live="polite">
     <div class="confetti" aria-hidden="true">✦　✧　✦　✧　✦</div>
@@ -193,12 +198,16 @@ const form = document.getElementById('searchForm');
 const input = document.getElementById('cpf');
 const message = document.getElementById('message');
 const result = document.getElementById('result');
+const clearSearch = document.getElementById('clearSearch');
+clearSearch.addEventListener('click', () => {
+ input.value=''; result.style.display='none'; message.style.display='none'; clearSearch.style.display='none'; input.focus();
+});
 const digits = value => value.replace(/\D/g, '');
 // Não alteramos o conteúdo enquanto o candidato digita ou cola.
 // A normalização acontece somente ao pesquisar, para evitar que o evento de
 // colagem interrompa a inserção do CPF completo.
 form.addEventListener('submit', event => {
- event.preventDefault(); result.style.display='none'; message.style.display='none';
+ event.preventDefault(); result.style.display='none'; message.style.display='none'; clearSearch.style.display='none';
  // Na pesquisa, considera exclusivamente os números: remove pontos, traços,
  // espaços e qualquer outro caractere não numérico antes de localizar o CPF.
  const cpf=digits(input.value);
@@ -245,7 +254,7 @@ form.addEventListener('submit', event => {
    } else { celebration.style.display='none'; }
  }
  if(!candidate.relatorio&&!candidate.redacao){message.textContent='O registro foi localizado, mas os documentos ainda não estão disponíveis. Entre em contato com a equipe responsável.';message.style.display='block';}
- result.style.display='block'; result.scrollIntoView({behavior:'smooth',block:'nearest'});
+ result.style.display='block'; clearSearch.style.display='inline-flex'; result.scrollIntoView({behavior:'smooth',block:'nearest'});
 });
 </script>
 </body>
