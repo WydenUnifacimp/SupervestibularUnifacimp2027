@@ -88,6 +88,11 @@ footer{max-width:760px;margin:26px auto 0;text-align:center;color:var(--muted);f
 .top3-celebration.bronze{background:radial-gradient(circle at 50% 0%,#F7DCCB 0%,#FFF6F0 45%,#FFFFFF 100%);border-color:#DDA17D}
 .top3-celebration.bronze .top3-kicker,.top3-celebration.bronze .top3-title{color:#8B451F}
 .reproved-notice{display:flex;gap:15px;margin:0 0 24px;padding:20px;border:2px solid #E74A30;border-radius:17px;background:linear-gradient(135deg,#FFF0EC 0%,#FFFFFF 100%);box-shadow:0 9px 25px #d93a201c;animation:notice-in .55s ease-out both}
+/* Aviso verde para candidatos aprovados */
+.approved-notice{display:flex;gap:15px;margin:0 0 24px;padding:20px;border:2px solid #16864B;border-radius:17px;background:linear-gradient(135deg,#E8F8EE 0%,#FFFFFF 100%);box-shadow:0 9px 25px #16864b1c;animation:notice-in .55s ease-out both}
+.approved-notice .notice-symbol{background:#16864B;box-shadow:0 4px 12px #16864b33}
+.approved-notice .notice-heading{color:#116638}
+.approved-notice p{margin:0;color:#24543A;font-size:14px;line-height:1.7}
 .notice-symbol{flex:0 0 38px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#E93A24;color:#fff;font-size:24px;font-weight:950;box-shadow:0 4px 12px #e93a2433}
 .notice-heading{font-weight:900;color:#A62A1A;font-size:17px;margin:2px 0 8px}
 .reproved-notice p{margin:0;color:#5D342E;font-size:14px;line-height:1.7}
@@ -99,7 +104,7 @@ footer{max-width:760px;margin:26px auto 0;text-align:center;color:var(--muted);f
 @keyframes trophy-bounce{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
 @keyframes sparkle{0%,100%{opacity:.45;transform:scale(.92)}50%{opacity:1;transform:scale(1.08)}}
 @media(prefers-reduced-motion:reduce){.top3-celebration,.top3-award,.confetti,.top3-celebration:before,.top3-celebration:after,.reproved-notice{animation:none!important}}
-@media(max-width:620px){.reproved-notice{padding:15px;gap:10px}.whatsapp-buttons{grid-template-columns:1fr}.notice-heading{font-size:16px}}
+@media(max-width:620px){.reproved-notice,.approved-notice{padding:15px;gap:10px}.whatsapp-buttons{grid-template-columns:1fr}.notice-heading{font-size:16px}}
 @media(max-width:620px){
  .header-inner{padding:17px 16px;flex-direction:column;gap:15px}
  .brand-logo{width:min(330px,90%);max-height:72px;object-position:center}
@@ -155,6 +160,12 @@ footer{max-width:760px;margin:26px auto 0;text-align:center;color:var(--muted);f
     <p>Infelizmente você não alcançou a pontuação mínima para a aprovação, mas você pode refazer a redação online e conquistar sua vaga com condições especiais. Entre em contato com a nossa equipe.</p>
 </div>
    </section>
+   <section id="approvedNotice" class="approved-notice" style="display:none" role="status" aria-live="polite">
+    <div class="notice-symbol" aria-hidden="true">✓</div>
+    <div><div class="notice-heading">PARABÉNS! VOCÊ ESTÁ APROVADO(A)!</div>
+    <p>Seu resultado no Supervestibular 2027 foi de aprovação! Entre em contato com nossa equipe pelos canais de WhatsApp abaixo para receber orientações sobre os próximos passos e sua matrícula.</p>
+    </div>
+   </section>
    <section class="contact-team" aria-label="Contato com a equipe do Supervestibular" style="margin:0 0 24px">
     <h3 style="margin:0 0 8px;font-size:16px">Precisa de ajuda? Fale com nossa equipe</h3>
     <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.6">Os canais abaixo estão disponíveis para candidatos aprovados e não aprovados.</p>
@@ -203,6 +214,8 @@ form.addEventListener('submit', event => {
  essay.style.display=candidate.redacao?'inline-flex':'none';
  const reprovedNotice=document.getElementById('reprovedNotice');
  reprovedNotice.style.display=candidate.status==='reprovado'?'flex':'none';
+ const approvedNotice=document.getElementById('approvedNotice');
+ approvedNotice.style.display=candidate.status==='aprovado'?'flex':'none';
  const celebration=document.getElementById('top3Celebration');
  celebration.style.display='none';
  celebration.classList.remove('silver','bronze');
