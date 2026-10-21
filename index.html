@@ -215,6 +215,15 @@ form.addEventListener('submit', event => {
  const reprovedNotice=document.getElementById('reprovedNotice');
  reprovedNotice.style.display=candidate.status==='reprovado'?'flex':'none';
  const approvedNotice=document.getElementById('approvedNotice');
+ const approvedHeading=approvedNotice.querySelector('.notice-heading');
+ const approvedMessage=approvedNotice.querySelector('p');
+ if(candidate.top3){
+   approvedHeading.textContent='PARABÉNS! VOCÊ ESTÁ NO TOP 3!';
+   approvedMessage.textContent='Seu desempenho colocou você entre os três grandes destaques do Supervestibular 2027! Nossa equipe está à disposição para oferecer suporte personalizado, orientar sobre os próximos passos e ajudar no processo de matrícula. Entre em contato por um dos canais de WhatsApp abaixo.';
+ } else {
+   approvedHeading.textContent='PARABÉNS! VOCÊ ESTÁ APROVADO(A)!';
+   approvedMessage.textContent='Seu resultado no Supervestibular 2027 foi de aprovação! Entre em contato com nossa equipe pelos canais de WhatsApp abaixo para receber orientações sobre os próximos passos e sua matrícula.';
+ }
  approvedNotice.style.display=candidate.status==='aprovado'?'flex':'none';
  const celebration=document.getElementById('top3Celebration');
  celebration.style.display='none';
